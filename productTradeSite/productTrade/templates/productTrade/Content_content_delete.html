@@ -1,0 +1,23 @@
+{% extends 'productTrade/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <h1 style="text-align: center;">{{ content.title }}</h1>
+            <hr>
+            <div class="container">
+                <form action="{% url 'delete_content' contentid=contentid %}" method="post">
+                    <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
+                    {% csrf_token %}
+                    <p>해당 게시물을 정말 삭제하시겠습니까?</p>
+                    <p>삭제 시 게시물을 복구할 수 없습니다. 삭제를 원하시면 아래 삭제 버튼을 눌러주세요!</p>
+                    <button type="submit">삭제</button>
+                </form>
+            </div>
+        </main>
+    </div>    
+</div>
+{% endblock %}

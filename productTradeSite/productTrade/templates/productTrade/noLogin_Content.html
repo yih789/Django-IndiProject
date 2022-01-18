@@ -1,0 +1,36 @@
+{% extends 'productTrade/noLogin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <div class= 'section_box'>
+			<section class= 'product'>
+                <div class= 'product_info'>
+                    <h2>{{ item.title }}</h2>
+                    <hr/>
+                    <p>{{ item.text }}</p>
+                    <img src="{{ imgpath }}"/>
+                </div>
+			</section>
+			<section>
+                <p>댓글을 달기 위해 로그인을 해주세요!</p>
+                <button type="button"><a href="{% url 'login' %}">로그인하기</a></button>
+                <div class="comment_tbl">
+                    <table>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.commenter_id }}</td>
+                                <td>{{ comment.text }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+			</section>
+            </div>
+		</main>
+    </div>
+</div>
+
+{% endblock %}

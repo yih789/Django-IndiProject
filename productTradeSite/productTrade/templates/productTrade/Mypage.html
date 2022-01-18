@@ -1,0 +1,84 @@
+{% extends 'productTrade/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <h1 style="text-align: center;">회원정보</h1>
+            <hr>
+            <div class="user_info">
+                <table>
+                    <tr>
+                        <td>이름</td>
+                        <td> : {{ user.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>전화번호</td>
+                        <td> : {{ user.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <td>아이디</td>
+                        <td> : {{ user.username }}</td>
+                      </tr>
+                    <tr>
+                        <td>가입일</td>
+                        <td> : {{ user.created_at.date }}</td>
+                    </tr>
+                </table>
+                <button type="submit"><a href="{% url 'update_user' %}">수정</a></button>
+                <button type="submit"><a href="{% url 'delete_user' %}">탈퇴</a></button>
+            </div>
+            
+            <div class="user_content_info">
+                <h1 style="text-align: center;">내가 쓴 게시물</h1>
+                <hr>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>게시일</th>
+                        <th>제목</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for content in contents %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ content.created_at }}</td>
+                                <td>{{ content.title }}</td>
+                            </tr>          
+                      {% endfor %} 
+                    </tbody>
+                </table>
+            </div>
+                
+            <div class="user_comment_info">
+                <h1 style="text-align: center;">내가 쓴 댓글</h1>
+                <hr>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>게시물 제목</th>
+                        <th>댓글</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for comment,content in user_comment_tbl.items %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ content.title }}</td>
+                                <td>{{ comment.text }}<td>
+                                
+                            </tr>                 
+                      {% endfor %} 
+
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>    
+</div>
+{% endblock %}

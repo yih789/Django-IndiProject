@@ -1,0 +1,52 @@
+{% extends 'productTrade/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <div class= 'section_box'>
+			<section class= 'product'>
+                <div class= 'product_info'>
+                    <h2>{{ item.title }}
+                        {% if item.writer_id_id == user.username %}
+                            <button type="button">수정</button>
+                            <button type="button">삭제</button>
+                        {% endif %}
+                    </h2>
+                    <hr/>
+                    <p>{{ item.text }}</p>
+                    <img src="{{ imgpath }}"/>
+                </div>
+			</section>
+			<section>
+                <div class="comment_tbl">
+                    <table>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.commenter_id }}</td>
+                                <td>{{ comment.text }}
+                                {% if comment.id == commentid %}
+                                    <div class="container" id="comment_form">
+                                        <form action="{% url 'update_comment' contentid=contentid commentid=commentid %}" method="post">
+                                            <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
+                                            {% csrf_token %}
+                                            <table>
+                                                    {{ commentform.as_table }}
+                                                <td><button type="submit">수정</button></td>
+                                            </table>
+                                        </form>
+                                    </div>
+                                {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+			</section>
+            </div>
+		</main>
+    </div>
+</div>
+
+{% endblock %}

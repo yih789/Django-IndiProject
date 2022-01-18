@@ -1,0 +1,25 @@
+{% extends 'productTrade/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <h1 style="text-align: center;">회원정보</h1>
+            <hr>
+            <div class="container">
+                <form action="{% url 'delete_user' %}" method="post">
+                    <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
+                    {% csrf_token %}
+                    <p><strong>{{ user.username }}</strong> 회원님의 계정이 삭제됩니다.<br>탈퇴시 개인정보 및 이용정보가 삭제되며 복구할 수 없습니다. <br>탈퇴를 원하시면 본인의 비밀번호를 입력해주세요.</p>
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <button type="submit">탈퇴</button>
+                </form>
+            </div>
+        </main>
+    </div>    
+</div>
+{% endblock %}

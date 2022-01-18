@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Blog Home - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'productTrade/assets/favicon.ico' %}""static/productTrade/assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'productTrade/css/styles.css' %}" rel="stylesheet" />
+        <style>
+
+            main {
+                border:solid 1px;
+                width: 80%;
+                margin: 0 auto;
+                background-color: White;
+            }
+            /* 구역 */
+            section {
+                border:solid 1px;
+                background-color: White;
+                margin: 0 10px 0 10px;
+            }
+            body {
+                background-color: LightCoral;
+                
+            }
+            .section_box {
+                margin: 10px;
+            }
+            nav {
+                margin-bottom: 20px;
+            }
+            footer {
+                margin-top: 20px;
+            }
+            .product img {
+                width: 40%;
+            }
+            .product_info {
+                margin: 10px;
+            }
+            #comment_form  {
+                margin: 10px;
+            }
+            #comment_form button {
+                float: right;
+            }
+            .comment-form-control{
+                width: 30em; height: 40px;
+                float:right;
+            }
+            #comment_form table{
+                border: 1px solid #bcbcbc;
+                margin:0 auto; 
+            }
+            #comment_form table, #comment_form td{
+                padding:5px 15px;  
+            }
+            .comment_tbl table{
+                border:solid 1px;
+                margin:0 auto;
+                width: 30em;
+            }
+            .comment_tbl td{
+                border:solid 1px;
+                height: 50px;  
+            }
+            .card-head {
+                margin-top:5px;
+                border: 1px solid #bcbcbc;
+                width: 100%;
+                height: 30px;
+                background-color:  #F5FFFA;
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'contentList'  %}">Hyein Market</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contentList'  %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'productTrade/js/scripts.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'productTrade/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class= 'main_box'>
+		<main>
+            <div class= 'section_box'>
+			<section class= 'product'>
+                <div class= 'product_info'>
+                    <div class="container">
+                        <form action="{% url 'update_content' contentid=contentid %}" method="post" enctype="multipart/form-data">
+                            <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
+                            {% csrf_token %}
+                            <table>
+                                {{ form.as_table }}
+                            </table>
+                            <button type="submit">수정</button>
+                        </form>
+                    </div>
+                </div>
+			</section>
+			<section>
+                <div class="comment_tbl">
+                    <table>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.commenter_id }}</td>
+                                <td>{{ comment.text }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+			</section>
+            </div>
+		</main>
+    </div>
+</div>
+
+{% endblock %}
