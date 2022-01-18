@@ -31,35 +31,36 @@
                             </div>
                             {% endfor %}
                     </div>
-                            
+
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
                         <hr class="my-0" />
                         <ul class="pagination justify-content-center my-4">
-                            {% if contents.has_previous %}
-                            <li><a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">&laquo;</a></li>
-                            {% if prepre >= 1 %}
-                            <li class="page-item"><a class="page-link" href="?page={{ prepre }}">{{ prepre }}</a></li>
-                            {% endif %}
-                            <li class="page-item"><a class="page-link" href="?page={{ contents.previous_page_number }}">{{ contents.previous_page_number }}</a></li>
+                            {% if left != 0 and left < total_page_num %}
+                                <li><a class="page-link" href="?page={{ left }}" tabindex="-1" aria-disabled="true">&laquo;</a></li>
                             {% else %}
-                            <li class="page-item disabled"><a class="page-link" href="" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="" tabindex="-1" aria-disabled="true">&laquo;</a></li>
                             {% endif %}
-                            
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ contents.number }}">{{ contents.number }}</a></li>
-                            
-                            {% if contents.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ contents.next_page_number }}">{{ contents.next_page_number }}</a></li>
-                            {% if contents.paginator.num_pages >= nexnex %}
-                            <li class="page-item"><a class="page-link" href="?page={{ nexnex }}">{{ nexnex }}</a></li>
-                            {% endif %}
-                            <li><a class="page-link" href="?page={{ contents.paginator.num_pages }}" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+
+                            {% for page in range_for %}
+                                {% if page <= total_page_num %}
+                                    {% if page == request_page %}
+                                        <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if right <= total_page_num %}
+                                <li><a class="page-link" href="?page={{ right }}" tabindex="-1" aria-disabled="true">&raquo;</a></li>
                             {% else %}
-                            <li class="page-item disabled"><a class="page-link" href="" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="" tabindex="-1" aria-disabled="true">&raquo;</a></li>
                             {% endif %}
                         </ul>
                     </nav>
                 </div>
+
                 
                 <!-- Side widgets-->
                 <div class="col-lg-4">

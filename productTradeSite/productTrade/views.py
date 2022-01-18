@@ -25,9 +25,10 @@ import pymysql # python과 mysql 연동
 
 # 로거 사용
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('error')
 
-
+# 공통 영역
+import common.common
 
 
 # Create your views here.
@@ -63,7 +64,7 @@ def contentList(request):
         return render(request, 'productTrade/ContentList.html', context)
         
     if request.method == 'GET':
-        contents = Content.objects.all()
+        contents = Content.objects.all().order_by('-id')
         paginator = Paginator(contents, 6)
 
         # 사용자에게 받은 page 파라미터에 맞는 페이지를 전달
@@ -84,12 +85,6 @@ def contentList(request):
             'nexnex' : nexnexpage,
         }
         return render(request, 'productTrade/ContentList.html', context)
-    
-    
-    
-    
-    
-    
     return render(request, 'productTrade/ContentList.html')
 
 
@@ -123,19 +118,28 @@ def indicontentList(request):
         return render(request, 'productTrade/IndiContentList.html', context)
         
     if request.method == 'GET':
-        contents = Content.objects.all()
+        contents = Content.objects.all().order_by('-id')
         paginator = Paginator(contents, 6)
+        logger.error('error log')
         
         '''
         # is_anonymous: 사용자가 로그아웃 된 상태일 때 True 반환
         if request.user.is_anonymous:
             print('aa')
-            '''
+        '''
         
         # 사용자에게 받은 page 파라미터에 맞는 페이지를 전달
         page = request.GET.get('page')
         items = paginator.get_page(page)
-        
+        row = items.number//5 + 1
+        if (items.number%5 == 0):
+            row = items.number // 5
+        left = row*5-5
+        right = row*5+1
+        range_for = range(row*5-4, row*5+1)
+        print(items.number, row)
+
+        '''
         preprepage = 0
         nexnexpage = 0
         
@@ -143,11 +147,18 @@ def indicontentList(request):
             preprepage = items.previous_page_number() - 1
         if items.has_next():
             nexnexpage = items.next_page_number() + 1
-        
+        '''
+
         context = {
-            'contents':items,
-            'prepre' : preprepage,
-            'nexnex' : nexnexpage,
+            'contents': items,
+            #'prepre' : preprepage,
+            #'nexnex' : nexnexpage,
+            'row': row,
+            'left': left,
+            'right': right,
+            'range_for': range_for,
+            'total_page_num': paginator.num_pages,
+            'request_page': items.number,
         }
         return render(request, 'productTrade/IndiContentList.html', context)
     
