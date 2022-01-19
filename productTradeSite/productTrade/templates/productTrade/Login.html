@@ -1,16 +1,16 @@
-{% extends 'productTrade/noLogin_base.html' %}
+{% extends 'productTrade/base.html' %}
 {% load static %}
 
 {% block content %}
 <div class="container">
     <form action="{% url 'login' %}" method="post">
-        <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
-        {% csrf_token %}
         <a href="{% url 'register' %}"><h6>회원가입</h6></a>
         {% if user.is_authenticated %}
       {{user.username}} 안녕하세요!
         {{ error }}
 {% endif %}
+        <!-- 잘못된 요청 검증: form을 통해서만 데이터가 들어오게 한다.-->
+        {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
